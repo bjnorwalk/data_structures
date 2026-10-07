@@ -1,7 +1,7 @@
 import js from "@eslint/js";
 import globals from "globals";
 import hooks from "eslint-plugin-react-hooks";
-import react from "eslint-plugin-react";
+import reactX from "eslint-plugin-react-x";
 
 export default [
   { ignores: ["dist/**", "node_modules/**", "coverage/**"] },
@@ -12,8 +12,11 @@ export default [
       globals: { ...globals.browser, ...globals.node },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
-    plugins: { react },
-    rules: { "react/jsx-uses-vars": "error", "react/jsx-uses-react": "error" },
+    plugins: { "react-x": reactX },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...reactX.configs.recommended.rules,
+    },
   },
   {
     files: ["src/**/*.{js,jsx}"],

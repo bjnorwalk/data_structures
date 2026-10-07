@@ -48,6 +48,7 @@ describe("visualizer operations", () => {
       screen.getByText("Popped 9. The element below it becomes the new top."),
     ).toBeTruthy();
     topic("Queue");
+    const remainingNode = screen.getByText("28", { exact: true });
     value(99);
     fireEvent.click(screen.getByRole("button", { name: "Enqueue" }));
     fireEvent.click(screen.getByRole("button", { name: "Dequeue" }));
@@ -56,6 +57,7 @@ describe("visualizer operations", () => {
         "Dequeued 14 from the front. Everyone else shifts forward logically.",
       ),
     ).toBeTruthy();
+    expect(screen.getByText("28", { exact: true })).toBe(remainingNode);
   });
   it("reports found and missing BST values", () => {
     vi.useFakeTimers();

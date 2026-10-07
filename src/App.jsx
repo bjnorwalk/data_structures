@@ -61,6 +61,10 @@ const topics = [
 const starterValues = [12, 7, 19, 3, 15];
 const starterBars = [38, 18, 54, 25, 72, 45, 31];
 
+function createEntries(values) {
+  return values.map((value) => ({ id: crypto.randomUUID(), value }));
+}
+
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -300,7 +304,7 @@ function InputRow({ value, setValue, onPrimary, primaryLabel = "Insert" }) {
 }
 
 function LinkedListVisualizer() {
-  const [nodes, setNodes] = useState(starterValues);
+  const [nodes, setNodes] = useState(() => createEntries(starterValues));
   const { start, cancel } = useAnimationTimer();
   const [input, setInput] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
@@ -312,7 +316,7 @@ function LinkedListVisualizer() {
     const n = Number(input);
     if (!Number.isFinite(n) || input === "") return;
     cancel();
-    setNodes((prev) => [...prev, n]);
+    setNodes((prev) => [...prev, ...createEntries([n])]);
     setActiveIndex(nodes.length);
     setStep(
       `Inserted ${n} at the tail. The old last node now points to this new node.`,
@@ -322,7 +326,7 @@ function LinkedListVisualizer() {
 
   const deleteTail = () => {
     if (!nodes.length) return;
-    const removed = nodes[nodes.length - 1];
+    const removed = nodes[nodes.length - 1].value;
     cancel();
     setNodes((prev) => prev.slice(0, -1));
     setActiveIndex(null);
@@ -341,7 +345,7 @@ function LinkedListVisualizer() {
       setActiveIndex(i);
       setStep(
         i < nodes.length
-          ? `Currently visiting node ${i} with value ${nodes[i]}. Move to current->next next.`
+          ? `Currently visiting node ${i} with value ${nodes[i].value}. Move to current->next next.`
           : "Traversal complete. current is now NULL.",
       );
       i++;
@@ -373,7 +377,7 @@ function LinkedListVisualizer() {
           <Button
             onClick={() => {
               cancel();
-              setNodes(starterValues);
+              setNodes(createEntries(starterValues));
               setActiveIndex(null);
               setStep("Reset linked list to starter values.");
             }}
@@ -388,8 +392,8 @@ function LinkedListVisualizer() {
     >
       <div className="flex min-h-[350px] flex-wrap items-center gap-4">
         <AnimatePresence>
-          {nodes.map((value, index) => (
-            <React.Fragment key={`${value}-${index}`}>
+          {nodes.map(({ value, id }, index) => (
+            <React.Fragment key={id}>
               <motion.div
                 layout
                 initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -439,7 +443,7 @@ function LinkedListVisualizer() {
 }
 
 function StackVisualizer() {
-  const [stack, setStack] = useState([8, 21, 34]);
+  const [stack, setStack] = useState(() => createEntries([8, 21, 34]));
   const [input, setInput] = useState("");
   const [step, setStep] = useState(
     "A stack is LIFO: last in, first out. You only add and remove from the top.",
@@ -448,14 +452,14 @@ function StackVisualizer() {
   const push = () => {
     const n = Number(input);
     if (!Number.isFinite(n) || input === "") return;
-    setStack((prev) => [...prev, n]);
+    setStack((prev) => [...prev, ...createEntries([n])]);
     setStep(`Pushed ${n}. It becomes the new top of the stack.`);
     setInput("");
   };
 
   const pop = () => {
     if (!stack.length) return;
-    const top = stack[stack.length - 1];
+    const top = stack[stack.length - 1].value;
     setStack((prev) => prev.slice(0, -1));
     setStep(`Popped ${top}. The element below it becomes the new top.`);
   };
@@ -481,7 +485,7 @@ function StackVisualizer() {
           </Button>
           <Button
             onClick={() => {
-              setStack([8, 21, 34]);
+              setStack(createEntries([8, 21, 34]));
               setStep("Reset stack to starter values.");
             }}
             variant="ghost"
@@ -495,11 +499,11 @@ function StackVisualizer() {
     >
       <div className="mx-auto flex max-w-sm flex-col-reverse items-center justify-end gap-3 pt-6">
         <AnimatePresence>
-          {stack.map((value, index) => {
+          {stack.map(({ value, id }, index) => {
             const isTop = index === stack.length - 1;
             return (
               <motion.div
-                key={`${value}-${index}`}
+                key={id}
                 layout
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -532,7 +536,7 @@ function StackVisualizer() {
 }
 
 function QueueVisualizer() {
-  const [queue, setQueue] = useState([14, 28, 42]);
+  const [queue, setQueue] = useState(() => createEntries([14, 28, 42]));
   const [input, setInput] = useState("");
   const [step, setStep] = useState(
     "A queue is FIFO: first in, first out. Enqueue at the back, dequeue from the front.",
@@ -541,14 +545,14 @@ function QueueVisualizer() {
   const enqueue = () => {
     const n = Number(input);
     if (!Number.isFinite(n) || input === "") return;
-    setQueue((prev) => [...prev, n]);
+    setQueue((prev) => [...prev, ...createEntries([n])]);
     setStep(`Enqueued ${n} at the back of the queue.`);
     setInput("");
   };
 
   const dequeue = () => {
     if (!queue.length) return;
-    const front = queue[0];
+    const front = queue[0].value;
     setQueue((prev) => prev.slice(1));
     setStep(
       `Dequeued ${front} from the front. Everyone else shifts forward logically.`,
@@ -576,7 +580,7 @@ function QueueVisualizer() {
           </Button>
           <Button
             onClick={() => {
-              setQueue([14, 28, 42]);
+              setQueue(createEntries([14, 28, 42]));
               setStep("Reset queue to starter values.");
             }}
             variant="ghost"
@@ -593,9 +597,9 @@ function QueueVisualizer() {
           front
         </span>
         <AnimatePresence mode="popLayout">
-          {queue.map((value, index) => (
+          {queue.map(({ value, id }) => (
             <motion.div
-              key={`${value}-${index}`}
+              key={id}
               layout
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -794,7 +798,7 @@ function SortingVisualizer() {
       <div className="flex min-h-[350px] items-end justify-center gap-3 overflow-x-auto">
         {bars.map((height, index) => (
           <motion.div
-            key={index}
+            key={height}
             layout
             className="flex flex-col items-center gap-2"
           >
