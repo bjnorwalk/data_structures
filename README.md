@@ -9,6 +9,15 @@ The lessons follow the main CS1 topics in UCF's published Foundation Exam outlin
 They are original examples, not copies of released exam questions. The app runs
 in the browser, with no accounts, API keys, or server. Refreshing resets the lesson.
 
+## Open the website
+
+- [Live site](https://cs1visualizer.vercel.app/) — the current release on `main`.
+- [Guided lessons preview](https://cs1visualizer-gdsbz3c1q-hacks16.vercel.app/) — the expanded CS1 lessons on the review branch.
+
+The guided lessons are being reviewed in [PR #1](https://github.com/bjnorwalk/data_structures/pull/1).
+Until it is merged, use the preview to check the newer lessons.
+The preview requires Vercel sign-in; the live site is public.
+
 ## Study modes
 
 **Guided lessons** let you move forward, go back, and reset a trace. Highlighted C
