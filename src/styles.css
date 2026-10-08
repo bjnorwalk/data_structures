@@ -27,3 +27,551 @@ input:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+:root {
+  --study-bg: #fafaf8;
+  --study-surface: #fff;
+  --study-text: #242827;
+  --study-muted: #606763;
+  --study-line: #e0e4df;
+  --study-accent: #28644e;
+  --study-tint: #e9f3ec;
+}
+.study-app {
+  color: var(--study-text);
+  background: var(--study-bg);
+  min-height: 100vh;
+  font-size: 14px;
+}
+.study-header {
+  height: 72px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--study-line);
+  gap: 16px;
+}
+.study-header strong {
+  font-size: 17px;
+  letter-spacing: -0.4px;
+}
+.study-header span {
+  color: var(--study-muted);
+  margin-left: 16px;
+  font-size: 12px;
+}
+.study-header nav {
+  display: flex;
+  gap: 4px;
+}
+:is(.study-header, .guided-layout) button {
+  border: 1px solid var(--study-line);
+  border-radius: 4px;
+  padding: 7px 10px;
+  background: var(--study-surface);
+  color: var(--study-text);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+:is(.study-header, .guided-layout) button:hover:not(:disabled) {
+  background: var(--study-tint);
+}
+:is(.study-header, .guided-layout) button[aria-pressed="true"],
+:is(.study-header, .guided-layout) button[aria-current="page"] {
+  color: var(--study-accent);
+  background: var(--study-tint);
+}
+:is(.study-header, .guided-layout) button:disabled {
+  opacity: 0.4;
+}
+.study-app :is(button, a, select, pre):focus-visible {
+  outline: 2px solid var(--study-accent);
+  outline-offset: 3px;
+}
+.study-app a {
+  color: var(--study-accent);
+  text-underline-offset: 3px;
+}
+.skip-link {
+  position: absolute;
+  top: -80px;
+  background: white;
+  padding: 12px;
+  z-index: 10;
+}
+.skip-link:focus {
+  top: 8px;
+}
+.guided-layout {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  max-width: 1600px;
+  margin: auto;
+}
+.lesson-sidebar {
+  border-right: 1px solid var(--study-line);
+  padding: 30px 18px;
+}
+.sidebar-caption,
+.eyebrow {
+  color: var(--study-muted);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.lesson-sidebar h2 {
+  color: var(--study-muted);
+  font-size: 11px;
+  font-weight: 600;
+  margin: 24px 8px 8px;
+}
+.lesson-sidebar button {
+  display: block;
+  text-align: left;
+  width: 100%;
+  border: 0;
+  margin: 2px 0;
+  padding: 8px;
+}
+.lesson-sidebar > a {
+  display: block;
+  margin: 30px 8px 0;
+  font-size: 12px;
+}
+.lesson-main {
+  padding: 36px 40px;
+  min-width: 0;
+}
+.lesson-heading {
+  position: relative;
+  margin-bottom: 20px;
+}
+.lesson-heading h1 {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  margin: 7px 0 18px;
+  line-height: 1.2;
+}
+.preset-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--study-muted);
+  font-size: 12px;
+}
+.study-app select {
+  background: var(--study-surface);
+  color: var(--study-text);
+  border: 1px solid var(--study-line);
+  border-radius: 4px;
+  padding: 7px 9px;
+  max-width: 100%;
+  font-size: 13px;
+}
+.lesson-intro > p:first-child {
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 75ch;
+}
+.prerequisite {
+  margin: 10px 0 25px;
+  color: var(--study-muted);
+  font-size: 12px;
+}
+.prerequisite strong {
+  font-weight: 500;
+}
+.trace-player {
+  border-top: 1px solid var(--study-line);
+}
+.step-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 0 10px;
+}
+.step-controls > div {
+  display: flex;
+  gap: 6px;
+}
+.step-controls > span {
+  font-size: 12px;
+  color: var(--study-muted);
+  white-space: nowrap;
+}
+.trace-player progress {
+  width: 100%;
+  height: 3px;
+  display: block;
+  accent-color: var(--study-accent);
+}
+.step-explanation {
+  min-height: 72px;
+  padding: 18px 0;
+  line-height: 1.65;
+  max-width: 90ch;
+}
+.trace-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+}
+.trace-columns h3,
+.lesson-notes h3,
+.checkpoint h3 {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.c-example h3 {
+  display: flex;
+  justify-content: space-between;
+}
+.c-example h3 span,
+.code-note {
+  color: var(--study-muted);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.c-example pre {
+  overflow: auto;
+  max-height: 520px;
+  margin: 12px 0 0;
+  background: #f0f2ef;
+  padding: 12px 0;
+  font-size: 11px;
+  line-height: 1.8;
+  border-radius: 4px;
+}
+.c-example code > span {
+  display: block;
+  padding: 0 12px 0 0;
+  min-width: max-content;
+}
+.c-example code small {
+  display: inline-block;
+  width: 32px;
+  text-align: right;
+  margin-right: 12px;
+  color: var(--study-muted);
+  user-select: none;
+}
+.c-example .executing {
+  background: #d8e9dc;
+  box-shadow: inset 3px 0 var(--study-accent);
+}
+.state-diagram {
+  display: grid;
+  gap: 18px;
+}
+.array-diagram {
+  margin: 0;
+}
+.array-diagram figcaption,
+.diagram-label {
+  font-size: 11px;
+  color: var(--study-muted);
+  margin: 0 0 7px;
+}
+.array-diagram ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.array-diagram li {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-width: 39px;
+}
+.array-diagram li span {
+  padding: 9px 7px;
+  border: 1px solid var(--study-line);
+  background: white;
+  border-radius: 3px;
+  font:
+    12px ui-monospace,
+    monospace;
+}
+.array-diagram li.current span {
+  background: var(--study-tint);
+  border-color: var(--study-accent);
+}
+.array-diagram small {
+  color: var(--study-muted);
+  font-size: 10px;
+  padding-top: 4px;
+}
+.array-diagram .empty-array {
+  color: var(--study-muted);
+  font-size: 12px;
+  padding: 9px;
+}
+.variables h4 {
+  font-size: 11px;
+  color: var(--study-muted);
+  margin-bottom: 6px;
+}
+.variables dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 18px;
+  font:
+    12px ui-monospace,
+    monospace;
+}
+.variables dl > div {
+  display: flex;
+  gap: 8px;
+}
+.variables dt {
+  color: var(--study-muted);
+}
+.memory-map {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+.memory-block {
+  background: var(--study-surface);
+  border: 1px solid var(--study-line);
+  border-radius: 3px;
+  padding: 10px;
+  min-width: 145px;
+  flex: 1;
+}
+.memory-block h4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  font:
+    12px ui-monospace,
+    monospace;
+  margin-bottom: 8px;
+}
+.memory-block h4 span {
+  color: var(--study-muted);
+  font:
+    10px system-ui,
+    sans-serif;
+}
+.memory-block em {
+  margin-left: auto;
+  font:
+    10px system-ui,
+    sans-serif;
+}
+.memory-block dl {
+  font:
+    11px ui-monospace,
+    monospace;
+}
+.memory-block dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0;
+}
+.memory-block dt {
+  color: var(--study-muted);
+}
+.memory-block.freed {
+  border-style: dashed;
+  opacity: 0.6;
+}
+.memory-block.freed h4 {
+  text-decoration: line-through;
+}
+.tree-diagram {
+  margin: 0;
+}
+.tree-diagram svg {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+}
+.tree-diagram line {
+  stroke: #a3b0a6;
+  stroke-width: 1.5;
+}
+.tree-diagram circle {
+  fill: white;
+  stroke: #98a89c;
+}
+.tree-diagram text {
+  font:
+    12px ui-monospace,
+    monospace;
+  fill: var(--study-text);
+}
+.tree-diagram .height-label {
+  font-size: 10px;
+  fill: var(--study-muted);
+}
+.tree-diagram .current circle {
+  fill: var(--study-tint);
+  stroke: var(--study-accent);
+  stroke-width: 2;
+}
+.tree-diagram .released {
+  opacity: 0.35;
+  text-decoration: line-through;
+}
+.tree-diagram figcaption {
+  margin: 8px 0;
+  color: var(--study-muted);
+  font-size: 11px;
+}
+.grid-diagram {
+  border-spacing: 4px;
+  border-collapse: separate;
+  font:
+    13px ui-monospace,
+    monospace;
+}
+.grid-diagram td {
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--study-line);
+}
+.grid-diagram .cell-0 {
+  background: #e6e9e5;
+}
+.grid-diagram .cell-2 {
+  background: var(--study-tint);
+}
+.grid-diagram .current {
+  outline: 2px solid var(--study-accent);
+}
+.checkpoint {
+  border-top: 1px solid var(--study-line);
+  margin-top: 32px;
+  padding-top: 20px;
+  max-width: 85ch;
+}
+.checkpoint > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 12px 0;
+}
+.checkpoint p {
+  line-height: 1.6;
+}
+.checkpoint [role="status"] {
+  color: var(--study-accent);
+}
+.lesson-notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+.lesson-notes p {
+  color: var(--study-muted);
+  line-height: 1.7;
+  font-size: 12px;
+}
+.lesson-footer {
+  border-top: 1px solid var(--study-line);
+  padding-top: 18px;
+  color: var(--study-muted);
+  font-size: 11px;
+  line-height: 1.7;
+  max-width: 100ch;
+}
+.lesson-footer a {
+  display: block;
+  margin-top: 7px;
+}
+.mobile-lesson-picker {
+  display: none;
+}
+.loading {
+  padding: 40px;
+}
+@media (max-width: 1100px) {
+  .lesson-main {
+    padding: 30px 24px;
+  }
+  .trace-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .c-example pre {
+    max-height: 350px;
+  }
+  .lesson-notes {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+@media (max-width: 700px) {
+  .guided-layout {
+    display: block;
+  }
+  .lesson-sidebar {
+    display: none;
+  }
+  .mobile-lesson-picker {
+    display: grid;
+    gap: 5px;
+    margin-bottom: 24px;
+    font-size: 12px;
+  }
+  .study-header {
+    padding: 12px 16px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .study-header span {
+    display: none;
+  }
+  .lesson-main {
+    padding: 25px 16px;
+  }
+  .lesson-heading h1 {
+    font-size: 26px;
+  }
+  .step-controls > div {
+    gap: 3px;
+  }
+  .step-controls button {
+    padding: 7px;
+  }
+  .step-controls span {
+    font-size: 11px;
+  }
+  .step-explanation {
+    min-height: 0;
+  }
+  .lesson-notes {
+    margin: 24px 0;
+  }
+}
+
+.c-example pre {
+  position: relative;
+}
+.lesson-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
+}
+
+.trace-columns > section {
+  min-width: 0;
+}
