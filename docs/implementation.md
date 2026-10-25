@@ -42,3 +42,11 @@ is correct. Review those separately.
 There is no dependency on UCF pages at runtime. References are reading links,
 not scraped application data. Keep downloaded source material and planning
 notes outside the repository.
+
+## Sandbox boundaries
+
+`src/Sandbox.jsx` owns topic navigation. Each visualizer in
+`src/features/sandbox/` owns its state and operations. Shared controls, C teaching
+samples, and small utilities stay separate. Animation cleanup remains in
+`useAnimationTimer`; switching topics unmounts the previous visualizer.
+The existing operation tests exercise all six visualizers through the shell.
